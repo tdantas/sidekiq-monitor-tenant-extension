@@ -20,3 +20,12 @@ require 'web/monitor/connection_manager'
 
 tenants_config = SidekiqMonitor::Configuration.load(File.expand_path(File.join(File.dirname(__FILE__), 'config/config.yml' )))
 SidekiqMonitor::ConnectionManager.configure!(tenants_config)
+
+
+if defined?(PhusionPassenger)
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    if forked
+      Redis.current.client.reconnect       
+    end
+  end
+end
