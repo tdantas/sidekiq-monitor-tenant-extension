@@ -1,0 +1,18 @@
+<form method='post' action='/tenants' role="form">
+
+  <div class="form-group">
+    <label for="tenants">Please, select your connection</label>
+    
+    <select id='tenants' name='tenant_id' class='form-control'>
+      
+      <% @tenants.each do |tenant| %>
+        <option value='<%= tenant.id %>'><%= tenant.name %></option>  
+      <% end %>
+
+    </select>
+
+  </div>
+
+  <input class='btn btn-primary form-control' type='submit' name='Submit' value='Connect' />
+
+</form>

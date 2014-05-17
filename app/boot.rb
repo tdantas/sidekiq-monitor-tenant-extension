@@ -1,0 +1,22 @@
+$:.unshift File.expand_path(File.dirname(__FILE__))
+
+require 'bundler/setup'
+
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
+require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+
+env = ENV['RACK_ENV'] || 'development'
+Bundler.require :default, env.to_sym
+
+# Loading sidekiq web monitor
+require 'sidekiq/web'
+
+# Registering sinatra extensions 
+require 'extensions/sinatra/multiple_views'
+require 'web/app'
+
+require 'web/monitor/configuration'
+require 'web/monitor/connection_manager'
+
+tenants_config = SidekiqMonitor::Configuration.load(File.expand_path(File.join(File.dirname(__FILE__), 'config/config.yml' )))
+SidekiqMonitor::ConnectionManager.configure!(tenants_config)

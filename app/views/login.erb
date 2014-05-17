@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= Sidekiq::NAME %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link href="<%= root_path %>stylesheets/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="<%= root_path %>stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta name="google" value="notranslate" />
+  </head>
+  <body class="admin">
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="navbar-brand" href="<%= root_path %>">
+            <%= Sidekiq::NAME %>
+          </a>
+        </div>
+      </div>
+    </div>
+
+     <div id="page">
+      <div class="container">
+        <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 col-sm-offset-4">
+
+            <% if @error_message %>
+              <div class='alert alert-danger'> <%= @error_message %> </div>
+            <% end %>
+
+            <form role="form" action='/login' method='post'>
+
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name='username'>
+              </div>
+
+              <div class="form-group">
+                <label for="port">Password</label>
+                <input type="password" class="form-control" id="password" name='password'>
+              </div>
+
+              <button type="submit" class="btn btn-primary pull-right">Log in</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
