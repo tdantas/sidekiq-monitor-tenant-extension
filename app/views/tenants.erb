@@ -1,3 +1,7 @@
+<% if @error_message %>
+  <div class='alert alert-danger'> <%= @error_message %> </div>
+<% end %>
+
 <form method='post' action='/tenants' role="form">
 
   <div class="form-group">

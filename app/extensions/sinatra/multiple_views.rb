@@ -6,6 +6,10 @@ module Sinatra
       Array(views).each {|v|super(v, name, engine, &block) }
     end
     
+    def mrender(name, layout=false)
+      erb name, views: settings.multi_tenant_views, layout: layout
+    end
+
   end
 
 end

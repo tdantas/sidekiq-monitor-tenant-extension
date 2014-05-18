@@ -4,13 +4,11 @@ module SidekiqMonitor
 
   class ConnectionManager
 
-
-    def self.configure!(config)
-      
-      config.sidekiqs.each do |tenant|
+    def self.configure!(config_file)
+      config = YAML.load_file(config_file)
+      config['sidekiqs'].each do |tenant|
         register(tenant) 
       end
-
     end
 
     def self.tenants

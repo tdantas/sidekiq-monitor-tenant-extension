@@ -11,4 +11,3 @@ gem 'sinatra'
 gem 'sidekiq'
 gem 'redis'
 gem 'rake'
-

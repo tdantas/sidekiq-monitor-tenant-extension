@@ -11,16 +11,10 @@ Bundler.require :default, env.to_sym
 # Loading sidekiq web monitor
 require 'sidekiq/web'
 
-# Registering sinatra extensions 
-require 'extensions/sinatra/multiple_views'
 require 'web/app'
 
-require 'web/monitor/configuration'
-require 'web/monitor/connection_manager'
-
-tenants_config = SidekiqMonitor::Configuration.load(File.expand_path(File.join(File.dirname(__FILE__), 'config/config.yml' )))
+tenants_config = File.expand_path(File.join(File.dirname(__FILE__), 'config/config.yml' ))
 SidekiqMonitor::ConnectionManager.configure!(tenants_config)
-
 
 if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|

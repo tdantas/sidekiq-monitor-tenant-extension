@@ -1,10 +1,11 @@
 require 'web/authenticator'
+require 'web/connection_manager'
+require 'helpers/namespace'
+require 'helpers/multiple_views'
 
 module Sidekiq
 
   class Web < Sinatra::Base
-
-    include Sinatra::MultipleView
 
     set :multi_tenant_root, File.expand_path("../../" , __FILE__)
     set :multi_tenant_views, [ "#{multi_tenant_root}/views", views ]
@@ -22,12 +23,10 @@ module Sidekiq
                            :expire_after => 2592000,
                            :secret => 'Please, you must change this sescret in production, ok! Do not forget '
 
+    helpers SidekiqMonitor::Sinatra::MultipleView
+    helpers SidekiqMonitor::TenantNamespaces                     
 
-    # Override to avoid memoizing
-    def namespace
-      Sidekiq.redis {|conn| conn.respond_to?(:namespace) ? conn.namespace : nil }
-    end                       
-
+    # before filters to redirect to login when not authenticated
     before /^(?!\/login)/ do 
       redirect '/login' unless session[:current_user]
     end
@@ -36,8 +35,13 @@ module Sidekiq
       redirect '/tenants' unless SidekiqMonitor::ConnectionManager.switch_to session[:connection_tenant_id]
     end
 
+    # load tenants
+    before '/tenants' do 
+      @tenants = SidekiqMonitor::ConnectionManager.tenants
+    end
+
     get '/login' do
-      erb :login, views: settings.multi_tenant_views, layout: false
+      mrender :login
     end
 
     post '/login' do
@@ -48,7 +52,7 @@ module Sidekiq
         redirect '/tenants'
       else
         @error_message = 'Credentials not found'
-        erb :login, views: settings.multi_tenant_views, layout: false
+        mrender :login
       end
     end
 
@@ -58,8 +62,7 @@ module Sidekiq
     end
 
     get '/tenants' do
-      @tenants = SidekiqMonitor::ConnectionManager.tenants
-      erb :tenants, views: settings.multi_tenant_views, layout: :tenant_layout
+      mrender :tenants, layout: :tenant_layout
     end
 
     post '/tenants' do
@@ -68,7 +71,7 @@ module Sidekiq
         redirect "#{root_path}"
       else
         @error_message = 'Please choose a valid tenant'
-        erb :tenants, views: settings.multi_tenant_views, layout: :tenant_layout
+        mrender :tenants, layout: :tenant_layout
       end
     end
 
