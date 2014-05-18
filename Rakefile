@@ -6,7 +6,7 @@ namespace :user do
   task :register do
     STDOUT.print "username: "; username = STDIN.gets.chomp
     STDOUT.print 'password: '; password = STDIN.gets.chomp
-    new_user = SidekiqMonitor::Authenticator.register(username, password)
+    new_user = SidekiqTenantMonitor::Authenticator.register(username, password)
     STDOUT.puts "New user created: #{ new_user.name }"
   end
 

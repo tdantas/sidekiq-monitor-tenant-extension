@@ -1,3 +1,8 @@
+local:
+  url: redis://127.0.0.1:6379/0
+
+secret: 'super awesome secret key must be placed here, do not forget'
+
 sidekiqs:
   - 
     name: prolinked-prd
@@ -9,3 +14,7 @@ sidekiqs:
     redis: 
       url: redis://127.0.0.1:6379/1
       namespace: mylinkedcare
+  - 
+    name: uid-prd
+    redis: 
+      url: redis://127.0.0.1:6379/5

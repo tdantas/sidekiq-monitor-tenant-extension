@@ -1,5 +1,6 @@
-require 'web/authenticator'
-require 'web/connection_manager'
+require 'lib/authenticator'
+require 'lib/connection_manager'
+
 require 'helpers/namespace'
 require 'helpers/multiple_views'
 
@@ -7,7 +8,7 @@ module Sidekiq
 
   class Web < Sinatra::Base
 
-    set :multi_tenant_root, File.expand_path("../../" , __FILE__)
+    set :multi_tenant_root, File.expand_path('../', __FILE__)
     set :multi_tenant_views, [ "#{multi_tenant_root}/views", views ]
 
     enable :raise_errors
@@ -21,10 +22,10 @@ module Sidekiq
     use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
                            :expire_after => 2592000,
-                           :secret => 'Please, you must change this sescret in production, ok! Do not forget '
+                           :secret => SidekiqTenantMonitor.config.secret
 
-    helpers SidekiqMonitor::Sinatra::MultipleView
-    helpers SidekiqMonitor::TenantNamespaces                     
+    helpers SidekiqTenantMonitor::Sinatra::MultipleView
+    helpers SidekiqTenantMonitor::TenantNamespaces                     
 
     # before filters to redirect to login when not authenticated
     before /^(?!\/login)/ do 
@@ -32,12 +33,12 @@ module Sidekiq
     end
 
     before /^(?!\/(login|tenants))/ do
-      redirect '/tenants' unless SidekiqMonitor::ConnectionManager.switch_to session[:connection_tenant_id]
+      redirect '/tenants' unless SidekiqTenantMonitor::ConnectionManager.switch_to session[:connection_tenant_id]
     end
 
     # load tenants
     before '/tenants' do 
-      @tenants = SidekiqMonitor::ConnectionManager.tenants
+      @tenants = SidekiqTenantMonitor::ConnectionManager.tenants
     end
 
     get '/login' do
@@ -45,7 +46,7 @@ module Sidekiq
     end
 
     post '/login' do
-      user = SidekiqMonitor::Authenticator.authenticate(params[:username], params[:password])
+      user = SidekiqTenantMonitor::Authenticator.authenticate(params[:username], params[:password])
 
       if user
         session[:current_user] = user.id
@@ -66,7 +67,7 @@ module Sidekiq
     end
 
     post '/tenants' do
-      if !!SidekiqMonitor::ConnectionManager.fetch(params[:tenant_id])
+      if !!SidekiqTenantMonitor::ConnectionManager.fetch(params[:tenant_id])
         session[:connection_tenant_id] = params[:tenant_id]
         redirect "#{root_path}"
       else
