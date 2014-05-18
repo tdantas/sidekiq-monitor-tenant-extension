@@ -9,6 +9,8 @@ This extension will enable you to monitor all sidekiq datasource (redis) in just
 
 This project is a rack application that is ready to be deployed.
 
+
+````
   git clone git@github.com:tdantas/sidekiq-monitor-tenant-extension.git
   cd sidekiq-monitor-tenant-extension
   bundle install
@@ -17,6 +19,7 @@ This project is a rack application that is ready to be deployed.
     or
   passenger start -p 3000 --min-instances 4
 
+````
 
 ### Configurations
 
