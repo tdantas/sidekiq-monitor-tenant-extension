@@ -36,7 +36,10 @@ You must only edit the environment file inside [config/deploy] (https://github.c
 
 ### Configurations
 
-  All configurations is placed in app/config/config.yml
+  All configurations is placed in [app/config/config.yml](https://github.com/tdantas/sidekiq-monitor-tenant-extension/blob/master/app/config/config.yml.sample)
+
+
+  ***config.sample.yml***
   
 ````
 
