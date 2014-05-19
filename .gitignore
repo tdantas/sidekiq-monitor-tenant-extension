@@ -1,0 +1,3 @@
+app/config/config.yml
+config/deploy/production.yml
+config/deploy/staging.yml
