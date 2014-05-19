@@ -23,9 +23,14 @@ This project is a rack application that is ready to be deployed.
 
 ## Deploy
 
-Ready to deploy using capistrano.  
-at [config/deploy.rb](https://github.com/tdantas/sidekiq-monitor-tenant-extension/blob/master/config/deploy.rb)  
-you must only edit the environment file inside   [config/deploy](https://github.com/tdantas/sidekiq-monitor-tenant-extension/tree/master/config/deploy) folder.
+Ready to deploy using capistrano [config/deploy.rb](https://github.com/tdantas/sidekiq-monitor-tenant-extension/blob/master/config/deploy.rb)    
+You must only edit the environment file inside [config/deploy] (https://github.com/tdantas/sidekiq-monitor-tenant-extension/tree/master/config/deploy) folder and create the [app/config/config.yml](https://github.com/tdantas/sidekiq-monitor-tenant-extension/blob/master/app/config/config.yml.sample) with your sidekiqs machines.
+
+
+````
+  cap deploy
+
+````
 
 
 
