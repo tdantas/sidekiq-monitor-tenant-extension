@@ -8,8 +8,8 @@ module Sidekiq
 
   class Web < Sinatra::Base
 
-    set :multi_tenant_root, File.expand_path('../', __FILE__)
-    set :multi_tenant_views, [ "#{multi_tenant_root}/views", views ]
+    helpers SidekiqTenantMonitor::Sinatra::MultipleView
+    helpers SidekiqTenantMonitor::TenantNamespaces                     
 
     enable :raise_errors
     disable :show_exceptions
@@ -24,8 +24,6 @@ module Sidekiq
                            :expire_after => 2592000,
                            :secret => SidekiqTenantMonitor.config.secret
 
-    helpers SidekiqTenantMonitor::Sinatra::MultipleView
-    helpers SidekiqTenantMonitor::TenantNamespaces                     
 
     # before filters to redirect to login when not authenticated
     before /^(?!\/login)/ do 
