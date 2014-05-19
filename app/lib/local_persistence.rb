@@ -11,6 +11,10 @@ module SidekiqTenantMonitor
 
     def self.interpolate_key(id)
       @key.call(id)
+    end
+
+    def self.reconnect!
+      redis.client.reconnect
     end    
     
     def self.setup!(config=SidekiqTenantMonitor.config)

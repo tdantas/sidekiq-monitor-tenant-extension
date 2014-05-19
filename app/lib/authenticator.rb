@@ -24,7 +24,7 @@ module SidekiqTenantMonitor
 
     # TODO: Instead of compare like that, implement constant time comparison to avoid time attacks
     def self.authenticate(username, password)
-      user = User.find(username);
+      user = User.find(username)
       return false unless user
       user if hashify(password, user.salt) == user.password
     end

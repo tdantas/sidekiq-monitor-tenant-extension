@@ -18,7 +18,7 @@ require 'web/app'
 if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
     if forked
-      Redis.current.client.reconnect       
+      SidekiqTenantMonitor::LocalPersistence.reconnect!    
     end
   end
 end
