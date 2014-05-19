@@ -1,4 +1,4 @@
-require 'helper'
+require 'test_helper'
 require 'rack/test'
 
 class TestWebTenants < Sidekiq::Test
@@ -15,6 +15,7 @@ class TestWebTenants < Sidekiq::Test
         follow_redirect!
         assert_equal 'http://example.org/login' , last_request.url
       end
+      
     end
 
     describe "GET /tenants with session" do 

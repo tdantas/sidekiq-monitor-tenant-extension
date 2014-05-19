@@ -32,7 +32,7 @@ module Sidekiq
       redirect '/login' unless session[:current_user]
     end
 
-    before /^(?!\/(login|tenants))/ do
+    before /^(?!\/(login|tenants|logout))/ do
       redirect '/tenants' unless SidekiqTenantMonitor::ConnectionManager.switch_to session[:connection_tenant_id]
     end
 

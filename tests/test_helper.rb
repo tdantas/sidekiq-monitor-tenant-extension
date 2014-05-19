@@ -1,8 +1,5 @@
 $:.unshift File.expand_path('../../app', __FILE__)
 
-require 'minitest/autorun'
-require 'minitest/pride'
-
 require 'sidekiq'
 require 'sidekiq/web'
 
@@ -13,4 +10,8 @@ require 'bundler/setup'
 Bundler.require :test, :default
 
 require 'boot'
+
+require 'minitest/autorun'
+require 'minitest/pride'
+
 Sidekiq::Test = Minitest::Test
