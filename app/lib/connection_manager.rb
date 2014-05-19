@@ -1,4 +1,4 @@
-require 'securerandom'
+require 'digest'
 
 module SidekiqTenantMonitor
 
@@ -46,7 +46,7 @@ module SidekiqTenantMonitor
     attr_reader :id, :name, :pool
     
     def initialize(name, redis)
-      @id   = SecureRandom.hex(5)
+      @id   = Digest::MD5.hexdigest(name)
       @name = name
       @redis = redis
     end
