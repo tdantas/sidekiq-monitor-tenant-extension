@@ -11,17 +11,12 @@ module SidekiqTenantMonitor
   def self.boot!
     configatron_setup!
     connection_manager_setup!
-    local_persistance_setup!
   end
 
   private
 
   def self.connection_manager_setup!
     SidekiqTenantMonitor::ConnectionManager.configure!
-  end
-
-  def self.local_persistance_setup!
-    SidekiqTenantMonitor::LocalPersistence.setup!
   end
   
   def self.configatron_setup!

@@ -23,10 +23,10 @@ module SidekiqTenantMonitor
     
     def self.setup!(config=SidekiqTenantMonitor.config)
       @redis = Redis.new(url: config.local['url'])
-      @redis.client.connect
     end
 
     def self.redis
+      setup! unless @redis
       @redis || LocalPersistence.redis
     end
 

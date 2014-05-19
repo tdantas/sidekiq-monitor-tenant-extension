@@ -15,11 +15,11 @@ SidekiqTenantMonitor.boot!
 require 'sidekiq/web'
 require 'web/app'
 
-if defined?(PhusionPassenger)
-  PhusionPassenger.on_event(:starting_worker_process) do |forked|
-    if forked
-      SidekiqTenantMonitor::LocalPersistence.reconnect!
-      SidekiqTenantMonitor::ConnectionManager.reconfigure!    
-    end
-  end
-end
+# if defined?(PhusionPassenger)
+#   PhusionPassenger.on_event(:starting_worker_process) do |forked|
+#     if forked
+#       SidekiqTenantMonitor::LocalPersistence.reconnect!
+#       SidekiqTenantMonitor::ConnectionManager.reconfigure!    
+#     end
+#   end
+# end
