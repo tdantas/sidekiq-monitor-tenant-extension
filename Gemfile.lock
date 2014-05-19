@@ -8,6 +8,7 @@ GEM
     daemon_controller (1.2.0)
     json (1.8.1)
     method_source (0.8.2)
+    minitest (5.3.4)
     passenger (4.0.42)
       daemon_controller (>= 1.2.0)
       rack
@@ -19,6 +20,8 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rake (10.3.2)
     redis (3.0.7)
     redis-namespace (1.4.1)
@@ -41,8 +44,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest (~> 5.3.3)
   passenger
   pry
+  rack-test
   rake
   redis
   sidekiq

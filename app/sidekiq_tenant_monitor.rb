@@ -25,8 +25,8 @@ module SidekiqTenantMonitor
   end
   
   def self.configatron_setup!
-    tenants_config = File.expand_path(File.join(File.dirname(__FILE__), 'config/config.yml' ))
-    SidekiqTenantMonitor::Configatron.load!(tenants_config)
+    config_file = ENV['CONFIG_FILE'] || File.expand_path(File.join(File.dirname(__FILE__), 'config/config.yml')) 
+    SidekiqTenantMonitor::Configatron.load!(config_file)
   end
 
 

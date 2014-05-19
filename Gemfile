@@ -3,8 +3,16 @@ source "https://rubygems.org"
 
 
 group :development do 
-  gem 'pry'
   gem 'passenger'
+end
+
+group :development, :test do 
+  gem 'pry'
+end
+
+group :test do 
+  gem 'minitest', '~> 5.3.3'
+  gem 'rack-test'
 end
 
 gem 'sinatra'

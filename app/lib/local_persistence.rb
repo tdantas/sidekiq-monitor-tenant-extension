@@ -16,6 +16,10 @@ module SidekiqTenantMonitor
     def self.reconnect!
       redis.client.reconnect
     end    
+
+    def self.flush_db!
+      redis.flushdb
+    end
     
     def self.setup!(config=SidekiqTenantMonitor.config)
       @redis = Redis.new(url: config.local['url'])

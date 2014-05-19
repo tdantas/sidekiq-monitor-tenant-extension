@@ -29,8 +29,8 @@ module SidekiqTenantMonitor
       user if hashify(password, user.salt) == user.password
     end
 
-    def self.register(username, password)
-      salt = SecureRandom.hex(10)
+    def self.register(username, password, salt = SecureRandom.hex(10)
+)
       User.create(username, hashify(password, salt), salt)
     end
 
