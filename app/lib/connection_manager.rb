@@ -10,6 +10,12 @@ module SidekiqTenantMonitor
       end
     end
 
+
+    def self.reconfigure!(config = SidekiqTenantMonitor.config)
+      @tenants = []
+      configure!(config)
+    end
+
     def self.tenants
       @tenants || []
     end
