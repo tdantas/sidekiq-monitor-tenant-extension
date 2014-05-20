@@ -10,7 +10,6 @@ module SidekiqTenantMonitor
       end
     end
 
-
     def self.reconfigure!(config = SidekiqTenantMonitor.config)
       @tenants = []
       configure!(config)
@@ -32,11 +31,19 @@ module SidekiqTenantMonitor
       Sidekiq.redis = tenant.pool
     end
 
+    def self.fetchByName(name, default=nil)
+      iterate { |t| return t if t.name == name }
+      return default
+    end
+
     def self.fetch(id)
-      tenants.each do |tenant|
-        return tenant if tenant.id == id 
-      end
+      iterate { |t| return t if t.id == id } 
       return nil
+    end
+
+    private
+    def self.iterate(&block)
+      tenants.each &block
     end
 
   end

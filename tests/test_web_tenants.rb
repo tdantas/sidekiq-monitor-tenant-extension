@@ -15,7 +15,7 @@ class TestWebTenants < Sidekiq::Test
         follow_redirect!
         assert_equal 'http://example.org/login' , last_request.url
       end
-      
+
     end
 
     describe "GET /tenants with session" do 
@@ -41,11 +41,18 @@ class TestWebTenants < Sidekiq::Test
         end
       end
 
+      it 'accepts the tenant connection using query string' do 
+       tenant_name = SidekiqTenantMonitor::ConnectionManager.tenants.first.name
+        get '/', { tenant_name: tenant_name },  'rack.session' => { current_user: 'tdantas' }
+        assert_equal 200, last_response.status
+        assert_equal "http://example.org/?tenant_name=#{tenant_name}", last_request.url
+      end
+
       it 'accepts / when already setup the connection' do 
         connection_tenant_id = SidekiqTenantMonitor::ConnectionManager.tenants.first.id
         get '/', { },  'rack.session' => { current_user: 'tdantas', connection_tenant_id: connection_tenant_id }
         assert_equal 200, last_response.status
-        assert_equal 'http://example.org/', last_request.url
+        assert_equal "http://example.org/", last_request.url
       end
 
     end

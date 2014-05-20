@@ -24,10 +24,16 @@ module Sidekiq
                            :expire_after => 2592000,
                            :secret => SidekiqTenantMonitor.config.secret
 
-
     # before filters to redirect to login when not authenticated
     before /^(?!\/login)/ do 
       redirect '/login' unless session[:current_user]
+    end
+
+    # on purpose to devops bookmark tenants page
+    before /^(?!\/(login|tenants|logout))/ do 
+      break unless params[:tenant_name]
+      tenant = SidekiqTenantMonitor::ConnectionManager.fetchByName(params[:tenant_name])
+      session[:connection_tenant_id] = tenant ? tenant.id : nil
     end
 
     before /^(?!\/(login|tenants|logout))/ do
@@ -39,6 +45,7 @@ module Sidekiq
       @tenants = SidekiqTenantMonitor::ConnectionManager.tenants
     end
 
+ 
     get '/login' do
       mrender :login
     end
