@@ -30,10 +30,10 @@ module Sidekiq
     end
 
     # on purpose to devops bookmark tenants page
-    before /^(?!\/(login|tenants|logout))/ do 
+    before /^(?!\/(login|tenants|logout))/ do
       break unless params[:tenant_name]
       tenant = SidekiqTenantMonitor::ConnectionManager.fetchByName(params[:tenant_name])
-      session[:connection_tenant_id] = tenant ? tenant.id : nil
+      session[:connection_tenant_id] = tenant.id if tenant
     end
 
     before /^(?!\/(login|tenants|logout))/ do
