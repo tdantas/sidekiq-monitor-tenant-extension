@@ -79,7 +79,7 @@ sidekiqs:
 
 #### TODO
 
-- Extract all sidekiq monitor from sidekiq gem.
+- (Doing on my rest days) Extract all sidekiq monitor from sidekiq gem.
   We are extending the monitor from original sidekiq gem, whatever changes made in the original could brake our extension.
 
 - Finalize my extensions tests and publish.
