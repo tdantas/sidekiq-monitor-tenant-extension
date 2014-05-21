@@ -9,6 +9,10 @@ module SidekiqTenantMonitor
       @key = key
     end
 
+    def self.index_by(name)
+      @index = name
+    end
+
     def self.interpolate_key(id)
       @key.call(id)
     end
@@ -36,10 +40,15 @@ module SidekiqTenantMonitor
       return nil    
     end
 
-    def self.create(username, password, salt=SecureRandom.hex(10))
-      id = [ Time.now.to_i, SecureRandom.hex(10)].join('')
-      redis.hmset(interpolate_key(username), 'username', username, 'password', password, 'salt' ,salt, 'id', id );
-      new({ "username" => username, "password" =>  password, "salt" => salt, "id" => id})
+    def self.create(hash)
+      id = hash['id'] || [ Time.now.to_i, SecureRandom.hex(10)].join('')
+      with_id_hash = hash.merge({'id' => id})
+
+      hash_array = with_id_hash.to_a.reduce([]) { |acc, curr| acc.concat(curr) }
+      idx = with_id_hash[@index]
+      
+      redis.hmset(interpolate_key(idx), *hash_array);
+      new(with_id_hash)
     end
 
   end
