@@ -1,3 +1,6 @@
+[![Dependency Status](https://gemnasium.com/tdantas/sidekiq-monitor-tenant-extension.svg)](https://gemnasium.com/tdantas/sidekiq-monitor-tenant-extension)
+
+
 # Sidekiq Monitor Extension
 
 We have many services and almost all of them are using sidekiq for background jobs.  
