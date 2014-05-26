@@ -1,5 +1,7 @@
 [![Dependency Status](https://gemnasium.com/tdantas/sidekiq-monitor-tenant-extension.svg)](https://gemnasium.com/tdantas/sidekiq-monitor-tenant-extension)
 
+[![Build Status](https://travis-ci.org/tdantas/sidekiq-monitor-tenant-extension.svg)](https://travis-ci.org/tdantas/sidekiq-monitor-tenant-extension)
+
 
 # Sidekiq Monitor Extension
 
