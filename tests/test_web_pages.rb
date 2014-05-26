@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rack/test'
 
-class TestWebTenants < Sidekiq::Test
+class TestWebPages < Sidekiq::Test
 
   describe 'Sidekiq Web Pages' do 
     include Rack::Test::Methods
