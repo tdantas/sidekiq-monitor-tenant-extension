@@ -14,9 +14,9 @@ namespace :user do
 
 end
 
-task :default => ['user:register']
-
 Rake::TestTask.new(:test) do |test|
   test.libs << 'tests'
   test.pattern = 'tests/**/test_*.rb'
 end
+
+task :default => ['test']
