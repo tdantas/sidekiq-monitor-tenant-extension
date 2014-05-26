@@ -3,7 +3,7 @@ require 'rack/test'
 
 class TestWebTenants < Sidekiq::Test
 
-  describe 'Authentication endpoint' do 
+  describe 'Sidekiq Web Pages' do 
     include Rack::Test::Methods
     def app; Sidekiq::Web; end
 
