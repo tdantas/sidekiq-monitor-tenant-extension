@@ -1,7 +1,6 @@
 [![Dependency Status](https://gemnasium.com/tdantas/sidekiq-monitor-tenant-extension.svg)](https://gemnasium.com/tdantas/sidekiq-monitor-tenant-extension)
 
-[![Build Status](https://travis-ci.org/tdantas/sidekiq-monitor-tenant-extension.svg)](https://travis-ci.org/tdantas/sidekiq-monitor-tenant-extension)
-
+[![Build Status](https://travis-ci.org/tdantas/sidekiq-monitor-tenant-extension.svg)](https://travis-ci.org/tdantas/sidekiq-monitor-tenant-extension) sidekiq patch already [merged](https://github.com/mperham/sidekiq/pull/1735) to fix build failing status. Later today as you can see at [mperham'scomment](https://github.com/mperham/sidekiq/pull/1735#issuecomment-44191258)
 
 # Sidekiq Monitor Extension
 
